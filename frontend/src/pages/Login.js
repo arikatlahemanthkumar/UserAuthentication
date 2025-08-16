@@ -42,6 +42,7 @@ export default function Login(){
                    email: user.email,
                    token: token
                })
+               alert(`Welcome back, ${user.userName}! Login successful.`);
                navigate('/dashboard')
             } catch(err) {
                 if (err.response && err.response.status === 401) {

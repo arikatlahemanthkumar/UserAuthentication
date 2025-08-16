@@ -36,6 +36,7 @@ export default function Register(){
         if(Object.keys(clientValidationsErrors).length === 0) {
             try {
                 await axios.post('http://localhost:3050/api/auth/register', formData)
+                alert(`Account created successfully! Welcome ${formData.userName}. Please login to continue.`);
                 navigate('/login');
             } catch(err) {
                 setServerErrors(err.response.data.errors);
