@@ -255,7 +255,7 @@ This implementation demonstrates a production-ready authentication system with c
    ```
    PORT=3050
    DB_URL=mongodb://127.0.0.1:27017/userAuthentication
-   JWT_SECRETKEY=your_secret_key_here
+   JWT_SECRETKEY=hiloailabspersonalkey
    ```
 4. Start MongoDB service
 5. Run backend server: `node index.js`
