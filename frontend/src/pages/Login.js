@@ -3,10 +3,12 @@ import AuthContext from "../context/AuthContext";
 import { useContext } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import { useToast } from '../context/ToastContext';
 import '../styles/auth.css';
 export default function Login(){
-    const { handleLogin } = useContext(AuthContext); 
-    const navigate = useNavigate(); 
+    const { handleLogin } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const { showSuccess, showError } = useToast();
     const [formData, setFormData] = useState({
         email : "",
         password : ""
@@ -42,14 +44,20 @@ export default function Login(){
                    email: user.email,
                    token: token
                })
+               showSuccess(`Welcome back, ${user.userName}! Login successful.`);
                navigate('/dashboard')
             } catch(err) {
                 if (err.response && err.response.status === 401) {
-                    setServerErrors("Login failed - Invalid email or password");
+                    const errorMsg = "Login failed - Invalid email or password";
+                    setServerErrors(errorMsg);
+                    showError(errorMsg);
                 } else if (err.response && err.response.data && err.response.data.errors) {
                     setServerErrors(err.response.data.errors);
+                    showError("Login failed. Please check your credentials.");
                 } else {
-                    setServerErrors("Login failed. Please try again.");
+                    const errorMsg = "Login failed. Please try again.";
+                    setServerErrors(errorMsg);
+                    showError(errorMsg);
                 }
             }
             setClientErrors({})

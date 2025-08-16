@@ -2,9 +2,11 @@
 import { useState } from "react"
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import { useToast } from '../context/ToastContext';
 import '../styles/auth.css';
 export default function Register(){
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
+    const { showSuccess, showError } = useToast();
     const [formData, setFormdata] = useState({
         userName:"",
         email : "",
@@ -36,9 +38,11 @@ export default function Register(){
         if(Object.keys(clientValidationsErrors).length === 0) {
             try {
                 await axios.post('http://localhost:3050/api/auth/register', formData)
+                showSuccess(`Account created successfully! Welcome ${formData.userName}. Please login to continue.`);
                 navigate('/login');
             } catch(err) {
                 setServerErrors(err.response.data.errors);
+                showError("Registration failed. Please check your information and try again.");
                 console.log(err.response.data.errors)
             }
             setClientErrors({})
