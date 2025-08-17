@@ -7,8 +7,9 @@ import authenticateUser from "../middleware/authenticate.js"
 
 const router = express.Router()
 
-router.post('/auth/register',checkSchema(userRegisterSchema),userCtrl.register)
-router.post('/auth/login',checkSchema(userLoginSchema),userCtrl.login)
-router.get('/protected',authenticateUser,userCtrl.protected)
+// Authentication routes as per requirements
+router.post('/auth/register',checkSchema(userRegisterSchema),userCtrl.register) // POST /api/auth/register
+router.post('/auth/login',checkSchema(userLoginSchema),userCtrl.login) // POST /api/auth/login
+router.get('/protected',authenticateUser,userCtrl.protected) // GET /api/protected - requires JWT
 
-export default router 
+export default router

@@ -2,6 +2,7 @@ import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import '../styles/dashboard.css';
 
+// Protected dashboard component - only visible after user logs in
 export default function Dashboard() {
   const { userState } = useContext(AuthContext);
 

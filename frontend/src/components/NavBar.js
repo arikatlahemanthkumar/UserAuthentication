@@ -3,6 +3,7 @@ import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import '../styles/navbar.css';
 
+// Navigation component that changes based on authentication status
 function Navbar() {
   const { userState, handleLogout } = useContext(AuthContext);
 

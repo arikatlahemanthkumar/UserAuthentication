@@ -30,15 +30,18 @@ export default function Register(){
         
     }
 
+    // Registration form submission - creates new user with hashed password
     const handleSubmit = async (e)=>{
         e.preventDefault();
         runClientValidations();
         if(Object.keys(clientValidationsErrors).length === 0) {
             try {
+                // Call registration API endpoint - password will be hashed on server
                 await axios.post('http://localhost:3050/api/auth/register', formData)
                 alert(`Account created successfully! Welcome ${formData.userName}. Please login to continue.`);
-                navigate('/login');
+                navigate('/login'); // Redirect to login after successful registration
             } catch(err) {
+                // Handle registration errors - validation failures, duplicate users
                 setServerErrors(err.response.data.errors);
                 console.log(err.response.data.errors)
             }

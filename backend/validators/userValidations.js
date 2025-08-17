@@ -26,6 +26,7 @@ export const userRegisterSchema = {
         },
         custom:{
             options:async(value)=>{
+                // Check if email already exists - prevents duplicate registrations
                 const user = await User.findOne({email:value})
                 if(user){
                     throw new Error ("Email is already in use")

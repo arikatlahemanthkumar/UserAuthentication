@@ -17,7 +17,7 @@ function App() {
           <Route
             path="/dashboard"
             element={
-              <PrivateRoute>
+              <PrivateRoute> {/* Protected route - requires authentication */}
                 <Dashboard />
               </PrivateRoute>
             }

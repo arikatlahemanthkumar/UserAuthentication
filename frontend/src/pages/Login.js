@@ -27,15 +27,18 @@ export default function Login(){
 
     }
 
+    // Login form submission - authenticates user and stores JWT
     const handleSubmit = async (e)=>{
         e.preventDefault();
         runClientValidations();
         if(Object.keys(clientValidationsErrors).length === 0) {
             try {
+               // Call login API endpoint
                const response= await axios.post('http://localhost:3050/api/auth/login',formData)
                console.log('Login Response:', response.data)
 
                const { token, user } = response.data;
+               // Store authentication data in global state and localStorage
                handleLogin({
                    _id: user._id,
                    userName: user.userName,
@@ -43,8 +46,9 @@ export default function Login(){
                    token: token
                })
                alert(`Welcome back, ${user.userName}! Login successful.`);
-               navigate('/dashboard')
+               navigate('/dashboard') // Redirect to protected dashboard
             } catch(err) {
+                // Handle authentication errors - 401 Unauthorized, 400 Bad Request
                 if (err.response && err.response.status === 401) {
                     setServerErrors("Login failed - Invalid email or password");
                 } else if (err.response && err.response.data && err.response.data.errors) {
